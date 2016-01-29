@@ -1,2 +1,2 @@
 # HrtzCraft
-A Minecraft server wrapper built for Spigot
+A design-oriented Minecraft server wrapper built for Spigot
