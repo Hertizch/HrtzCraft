@@ -1,0 +1,113 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="StylePlayersListBox" TargetType="{x:Type ListBox}">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+        <Setter Property="Foreground" Value="#FFB4B4B4" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBox}">
+                    <Border BorderThickness="{TemplateBinding BorderThickness}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            Background="{TemplateBinding Background}">
+                        <ItemsPresenter />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="StylePlayersListBoxItem" TargetType="{x:Type ListBoxItem}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="#FFB4B4B4" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="10,0,10,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Border BorderThickness="{TemplateBinding BorderThickness}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            Background="{TemplateBinding Background}">
+                        <Grid>
+                            <Border x:Name="BorderSelection" Background="Transparent" Padding="{TemplateBinding Padding}">
+                                <ContentPresenter />
+                            </Border>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="False" />
+                                <Condition Property="IsMouseOver" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Foreground" Value="#FFDADADA" />
+                            <Setter TargetName="BorderSelection" Property="Background" Value="#FF2E2E2D" />
+                        </MultiTrigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Foreground" Value="#FFFFFFFF" />
+                            <Setter TargetName="BorderSelection" Property="Background" Value="#FF703B18" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="StylePlayersListBoxExpander" TargetType="{x:Type Expander}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Expander}">
+                    <StackPanel>
+                        <ToggleButton Style="{DynamicResource StylePlayersListBoxExpanderButton}" IsChecked="{Binding Path=IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" />
+                        <ContentPresenter x:Name="ExpanderContent" Visibility="Collapsed" />
+                    </StackPanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsExpanded" Value="True">
+                            <Setter TargetName="ExpanderContent" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="StylePlayersListBoxExpanderButton" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Foreground" Value="#FFFFFFFF" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Grid Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Chevron Icon -->
+                        <Viewbox Width="10" Margin="10,0">
+                            <Path x:Name="PathRoot" Data="M891.802 312.781c13.926-13.722 36.301-13.722 50.125 0s13.875 35.891 0 49.613l-404.89 400.896c-13.824 13.722-36.198 13.722-50.125 0l-404.89-400.896c-13.824-13.722-13.824-35.891 0-49.613 13.875-13.722 36.301-13.722 50.125 0l379.853 365.619 379.802-365.619z" Stretch="Uniform" Fill="#FF8D8D8D" />
+                        </Viewbox>
+
+                        <!-- Header Text -->
+                        <ContentPresenter Grid.Column="1" x:Name="HeaderContent" Content="{Binding}" VerticalAlignment="Center" />
+                    </Grid>
+
+                    <!-- Triggers -->
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="PathRoot" Property="Data" Value="M132.198 711.219c-13.926 13.722-36.301 13.722-50.125 0s-13.875-35.891 0-49.613l404.89-400.896c13.824-13.722 36.198-13.722 50.125 0l404.89 400.896c13.824 13.722 13.824 35.891 0 49.613-13.875 13.722-36.301 13.722-50.074 0l-379.904-365.619-379.802 365.619z"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="PathRoot" Property="Fill" Value="#FFDADADA"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="PathRoot" Property="Fill" Value="#FFFFFFFF" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

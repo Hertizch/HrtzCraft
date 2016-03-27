@@ -1,0 +1,150 @@
+﻿<UserControl x:Class="HrtzCraft.Views.ServerConfigView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="600" DataContext="{StaticResource ServerConfigViewModel}">
+    <ScrollViewer>
+        <StackPanel Margin="25">
+
+            <TextBlock Text="Server Properties" Foreground="#FFA2A1A1" Margin="0,0,0,10" />
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Name -->
+                <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource StyleSettingsBorder}">
+                    <TextBlock Style="{StaticResource StyleSettingsTextBlock}" Text="Display Name" />
+                </Border>
+                <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource StyleSettingsTextBox}"
+                         Text="{Binding Path=Instance.Server.DisplayName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <!-- Directory -->
+                <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource StyleSettingsBorder}">
+                    <TextBlock Style="{StaticResource StyleSettingsTextBlock}" Text="Server Directory" />
+                </Border>
+                <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource StyleSettingsTextBox}" Text="{Binding Path=Instance.Server.ServerDirectory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding Path=Instance.Server.IsRunning, Converter={StaticResource InvertBoolConverter}}" />
+                <Button Grid.Row="1" Grid.Column="2" Style="{StaticResource StyleSettingsBrowseButton}" IsEnabled="{Binding Path=Instance.Server.IsRunning, Converter={StaticResource InvertBoolConverter}}"
+                        ToolTip="Browse" Command="{Binding Path=Instance.BrowseServerDirectoryCommand}" />
+
+                <!-- Jar Filename -->
+                <Border Grid.Row="2" Grid.Column="0" Style="{StaticResource StyleSettingsBorder}">
+                    <TextBlock Style="{StaticResource StyleSettingsTextBlock}" Text="Jar Filename" />
+                </Border>
+                <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource StyleSettingsTextBox}" Text="{Binding Path=Instance.Server.JarFilename, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding Path=Instance.Server.IsRunning, Converter={StaticResource InvertBoolConverter}}"/>
+                <Button Grid.Row="2" Grid.Column="2" Style="{StaticResource StyleSettingsBrowseButton}" IsEnabled="{Binding Path=Instance.Server.IsRunning, Converter={StaticResource InvertBoolConverter}}"
+                        ToolTip="Browse" Command="{Binding Path=Instance.BrowseServerJarFileCommand}" />
+
+                <!-- Java Executable -->
+                <Border Grid.Row="3" Grid.Column="0" Style="{StaticResource StyleSettingsBorder}">
+                    <TextBlock Style="{StaticResource StyleSettingsTextBlock}" Text="Java Executable" />
+                </Border>
+                <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource StyleSettingsTextBox}" Text="{Binding Path=Instance.Server.JavaFullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding Path=Instance.Server.IsRunning, Converter={StaticResource InvertBoolConverter}}" />
+                <Button Grid.Row="3" Grid.Column="2" Style="{StaticResource StyleSettingsBrowseButton}" IsEnabled="{Binding Path=Instance.Server.IsRunning, Converter={StaticResource InvertBoolConverter}}"
+                        ToolTip="Browse" Command="{Binding Path=Instance.BrowseJavaExeCommand}" />
+
+                <!-- Allocated RAM -->
+                <Border Grid.Row="4" Grid.Column="0" Style="{StaticResource StyleSettingsBorder}">
+                    <TextBlock Style="{StaticResource StyleSettingsTextBlock}" Text="Allocated RAM" />
+                </Border>
+                <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource StyleSettingsTextBox}"
+                         Text="{Binding Path=Instance.Server.RamAllocated, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=Instance.Server.IsRunning, Converter={StaticResource InvertBoolConverter}}" />
+
+                <!-- Maximum RAM -->
+                <Border Grid.Row="5" Grid.Column="0" Style="{StaticResource StyleSettingsBorder}">
+                    <TextBlock Style="{StaticResource StyleSettingsTextBlock}" Text="Maximum RAM" />
+                </Border>
+                <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource StyleSettingsTextBox}"
+                         Text="{Binding Path=Instance.Server.RamMax, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=Instance.Server.IsRunning, Converter={StaticResource InvertBoolConverter}}" />
+            </Grid>
+
+            <!-- BuildTools -->
+            <TextBlock Text="BuildTools Settings" Foreground="#FFA2A1A1" Margin="0,20,0,10" />
+
+            <Grid DataContext="{StaticResource BuildToolsViewModel}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!-- GitBash Executable -->
+                <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource StyleSettingsBorder}">
+                    <TextBlock Style="{StaticResource StyleSettingsTextBlock}" Text="GitBash Executable" />
+                </Border>
+                <TextBox Grid.Row="0" Grid.Column="1" Style="{StaticResource StyleSettingsTextBox}" Text="{Binding Path=Instance.BuildTool.GitBashFullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <Button Grid.Row="0" Grid.Column="2" Style="{StaticResource StyleSettingsBrowseButton}" 
+                        ToolTip="Browse" />
+
+                <!-- BuildTools Directory -->
+                <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource StyleSettingsBorder}">
+                    <TextBlock Style="{StaticResource StyleSettingsTextBlock}" Text="BuildTools Directory" />
+                </Border>
+                <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource StyleSettingsTextBox}" Text="{Binding Path=Instance.BuildTool.BuildToolsDirectory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <Button Grid.Row="1" Grid.Column="2" Style="{StaticResource StyleSettingsBrowseButton}" ToolTip="Browse" />
+
+                <!-- BuildTools Update Url -->
+                <Border Grid.Row="2" Grid.Column="0" Style="{StaticResource StyleSettingsBorder}">
+                    <TextBlock Style="{StaticResource StyleSettingsTextBlock}" Text="BuildTools Update Url" />
+                </Border>
+                <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource StyleSettingsTextBox}"
+                         Text="{Binding Path=Instance.BuildTool.BuildToolsUri, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" />
+
+                <!-- BuildTools RSS Url -->
+                <Border Grid.Row="3" Grid.Column="0" Style="{StaticResource StyleSettingsBorder}">
+                    <TextBlock Style="{StaticResource StyleSettingsTextBlock}" Text="BuildTools RSS Url" />
+                </Border>
+                <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource StyleSettingsTextBox}"
+                         Text="{Binding Path=Instance.BuildTool.BuildToolsRssUri, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" />
+
+                <!-- Spigot Version -->
+                <Border Grid.Row="4" Grid.Column="0" Style="{StaticResource StyleSettingsBorder}">
+                    <TextBlock Style="{StaticResource StyleSettingsTextBlock}" Text="Spigot Version" />
+                </Border>
+                <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource StyleSettingsTextBox}"
+                         Text="{Binding Path=Instance.BuildTool.SpigotVersion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" />
+            </Grid>
+
+            <!-- Other Options -->
+            <TextBlock Text="Other Options" Foreground="#FFA2A1A1" Margin="0,20,0,10" />
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Name -->
+                <Button Style="{StaticResource DefaultButton}" Content="Reset UI Properties" Padding="5,3" Command="{Binding Path=ResetUiPropertiesCommand}" />
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

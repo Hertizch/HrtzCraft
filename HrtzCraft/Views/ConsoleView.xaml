@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="HrtzCraft.Views.ConsoleView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:extensions="clr-namespace:HrtzCraft.Extensions"
+             xmlns:properties="clr-namespace:HrtzCraft.Properties"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="253"
+             DataContext="{StaticResource ServerControlViewModel}">
+
+    <Grid x:Name="GridRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="{Binding Source={x:Static properties:Settings.Default}, Path=Ui_ConsoleInputBarHeight, Converter={StaticResource GridLengthConverter},
+                           ConverterParameter=consoleInputBar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=100}"
+                           MinHeight="27" MaxHeight="{Binding Converter={StaticResource MaxLengthConverter}, ConverterParameter=4, ElementName=GridRoot, Path=ActualHeight}"/>
+        </Grid.RowDefinitions>
+
+        <extensions:MvvmTextEditor x:Name="TextBoxConsoleOutput" Style="{StaticResource StyleConsoleOutputTextBox}" DocumentText="{Binding Path=ConsoleOutput}"
+                                   TextChanged="TextBoxConsoleOutput_OnTextChanged" />
+        
+        <TextBox x:Name="TextBoxConsoleInput" Style="{StaticResource StyleConsoleInputTextBox}" Grid.Row="1"
+                 extensions:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding Source={StaticResource ConsoleViewModel}, Path=RememberedCommandsCollection}"
+                 extensions:AutoCompleteBehavior.AutoCompleteStringComparison="InvariantCultureIgnoreCase">
+            <TextBox.InputBindings>
+                <KeyBinding Key="Enter" Command="{Binding Path=SendCommand}" CommandParameter="{Binding ElementName=TextBoxConsoleInput, Path=Text}" />
+                <!--
+                <KeyBinding Key="Enter" Command="{Binding Source={StaticResource ConsoleViewModel}, Path=AddToRememberedCommandsCommand}" CommandParameter="{Binding ElementName=TextBoxConsoleInput, Path=Text}" />
+                -->
+            </TextBox.InputBindings>
+        </TextBox>
+        
+        <GridSplitter Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="4" Background="Transparent" />
+    </Grid>
+</UserControl>

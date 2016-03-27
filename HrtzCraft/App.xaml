@@ -1,0 +1,37 @@
+﻿<Application x:Class="HrtzCraft.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:HrtzCraft.Converters"
+             xmlns:viewModels="clr-namespace:HrtzCraft.ViewModels"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/MainWindowStyle.xaml" />
+                <ResourceDictionary Source="Styles/ButtonStyle.xaml" />
+                <ResourceDictionary Source="Styles/ListBoxStyle.xaml" />
+                <ResourceDictionary Source="Styles/IconStyle.xaml" />
+                <ResourceDictionary Source="Styles/AnimationStyle.xaml" />
+                <ResourceDictionary Source="Styles/ContextMenuStyle.xaml" />
+                <ResourceDictionary Source="Styles/ScrollBarStyle.xaml" />
+                <ResourceDictionary Source="Styles/TextContainerStyle.xaml" />
+                <ResourceDictionary Source="Styles/ComboBoxStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <viewModels:GlobalPlayersViewModel x:Key="GlobalPlayersViewModel" />
+            <viewModels:ServerControlViewModel x:Key="ServerControlViewModel" />
+            <viewModels:ServerConfigViewModel x:Key="ServerConfigViewModel" />
+            <viewModels:ConsoleViewModel x:Key="ConsoleViewModel" />
+            <viewModels:BuildToolsViewModel x:Key="BuildToolsViewModel" />
+            <viewModels:ShellViewModel x:Key="ShellViewModel" />
+            
+            <converters:MultiBindingValueToStringConverter x:Key="MultiBindingValueToStringConverter" />
+            <converters:InvertBoolConverter x:Key="InvertBoolConverter" />
+            <converters:GridLengthConverter x:Key="GridLengthConverter" />
+            <converters:MinLengthConverter x:Key="MinLengthConverter" />
+            <converters:MaxLengthConverter x:Key="MaxLengthConverter" />
+
+            <converters:PlayerPropertyIsOnlineToStringConverter x:Key="IsOnlineToStringConverter" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
