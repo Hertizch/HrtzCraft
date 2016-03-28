@@ -14,7 +14,7 @@
                     <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
                         <Grid>
                             <Viewbox Width="8">
-                                <Path x:Name="PathRoot" Data="{DynamicResource IconChevronDown}" Fill="{TemplateBinding Foreground}" Stretch="Uniform" />
+                                <Path x:Name="PathRoot" Data="{DynamicResource IconFilter}" Fill="{TemplateBinding Foreground}" Stretch="Uniform" />
                             </Viewbox>
                         </Grid>
                     </Border>

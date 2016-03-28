@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="600" DataContext="{StaticResource ServerConfigViewModel}">
     <ScrollViewer>
-        <StackPanel Margin="25">
+        <StackPanel Margin="25,0,25,0">
 
             <TextBlock Text="Server Properties" Foreground="#FFA2A1A1" Margin="0,0,0,10" />
 
@@ -99,23 +99,23 @@
                 <Button Grid.Row="0" Grid.Column="2" Style="{StaticResource StyleSettingsBrowseButton}" 
                         ToolTip="Browse" />
 
-                <!-- BuildTools Directory -->
+                <!-- Directory -->
                 <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource StyleSettingsBorder}">
-                    <TextBlock Style="{StaticResource StyleSettingsTextBlock}" Text="BuildTools Directory" />
+                    <TextBlock Style="{StaticResource StyleSettingsTextBlock}" Text="Directory" />
                 </Border>
                 <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource StyleSettingsTextBox}" Text="{Binding Path=Instance.BuildTool.BuildToolsDirectory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <Button Grid.Row="1" Grid.Column="2" Style="{StaticResource StyleSettingsBrowseButton}" ToolTip="Browse" />
 
-                <!-- BuildTools Update Url -->
+                <!-- Update Url -->
                 <Border Grid.Row="2" Grid.Column="0" Style="{StaticResource StyleSettingsBorder}">
-                    <TextBlock Style="{StaticResource StyleSettingsTextBlock}" Text="BuildTools Update Url" />
+                    <TextBlock Style="{StaticResource StyleSettingsTextBlock}" Text="Update Url" />
                 </Border>
                 <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource StyleSettingsTextBox}"
                          Text="{Binding Path=Instance.BuildTool.BuildToolsUri, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" />
 
-                <!-- BuildTools RSS Url -->
+                <!-- RSS Url -->
                 <Border Grid.Row="3" Grid.Column="0" Style="{StaticResource StyleSettingsBorder}">
-                    <TextBlock Style="{StaticResource StyleSettingsTextBlock}" Text="BuildTools RSS Url" />
+                    <TextBlock Style="{StaticResource StyleSettingsTextBlock}" Text="RSS Url" />
                 </Border>
                 <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource StyleSettingsTextBox}"
                          Text="{Binding Path=Instance.BuildTool.BuildToolsRssUri, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" />
@@ -143,7 +143,8 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Name -->
-                <Button Style="{StaticResource DefaultButton}" Content="Reset UI Properties" Padding="5,3" Command="{Binding Path=ResetUiPropertiesCommand}" />
+                <Button Style="{StaticResource DefaultButton}" Content="Reset UI Properties" Padding="5,3" Command="{Binding Path=ResetUiPropertiesCommand}"
+                        ToolTip="Resets window sizes and position to default"/>
             </Grid>
         </StackPanel>
     </ScrollViewer>

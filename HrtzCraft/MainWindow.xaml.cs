@@ -1,9 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Data;
 using HrtzCraft.Extensions;
 using HrtzCraft.Models;
+using HrtzCraft.ViewModels;
 
 namespace HrtzCraft
 {
@@ -56,6 +58,24 @@ namespace HrtzCraft
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void MainWindow_OnClosing(object sender, CancelEventArgs e)
+        {
+            if (ServerConfigViewModel.Instance.Server.IsRunning)
+            {
+                MessageBox.Show("The server is currently online. Shut the server down before exiting.");
+                e.Cancel = true;
+                return;
+            }
+
+            if (ServerConfigViewModel.Instance.SaveServerConfigToFileCommand.CanExecute(ServerConfigViewModel.Instance.ServerSettingsFullPath))
+                ServerConfigViewModel.Instance.SaveServerConfigToFileCommand.Execute(ServerConfigViewModel.Instance.ServerSettingsFullPath);
+
+            if (BuildToolsViewModel.Instance.SaveBuildToolsConfigToFileCommand.CanExecute(BuildToolsViewModel.Instance.BuildToolsSettingsFullPath))
+                BuildToolsViewModel.Instance.SaveBuildToolsConfigToFileCommand.Execute(BuildToolsViewModel.Instance.BuildToolsSettingsFullPath);
+
+            Properties.Settings.Default.Save();
         }
     }
 }

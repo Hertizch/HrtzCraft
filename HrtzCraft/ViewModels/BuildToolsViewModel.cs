@@ -22,16 +22,18 @@ namespace HrtzCraft.ViewModels
             if (LoadBuildToolsConfigFromFileCommand.CanExecute(BuildToolsSettingsFullPath))
                 LoadBuildToolsConfigFromFileCommand.Execute(BuildToolsSettingsFullPath);
 
-            /*BuildTool.BuildToolsRssUri = "https://hub.spigotmc.org/jenkins/job/BuildTools/rssAll";
-            BuildTool.BuildToolsUri = "https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar";
-            BuildTool.BuildToolsDirectory = @"C:\BuildTools";
-            BuildTool.GitBashFullName = @"C:\Program Files\Git\bin\bash.exe";
-            BuildTool.SpigotVersion = "1.9";*/
+            if (string.IsNullOrEmpty(BuildTool.BuildToolsRssUri))
+                BuildTool.BuildToolsRssUri = "https://hub.spigotmc.org/jenkins/job/BuildTools/rssAll";
+
+            if (string.IsNullOrEmpty(BuildTool.BuildToolsUri))
+                BuildTool.BuildToolsRssUri = "https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar";
+
+            if (string.IsNullOrEmpty(BuildTool.SpigotVersion))
+                BuildTool.BuildToolsRssUri = "1.9";
 
             if (BuildTool.BuildToolsDirectory != null && !Directory.Exists(BuildTool.BuildToolsDirectory))
             {
                 Directory.CreateDirectory(BuildTool.BuildToolsDirectory);
-
                 Logger.Write($"Created directory: {BuildTool.BuildToolsDirectory}", true);
             }
         }

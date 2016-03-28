@@ -12,7 +12,8 @@
         mc:Ignorable="d" Style="{StaticResource StyleMainWindow}" WindowStartupLocation="CenterScreen"
         Title="MainWindow" x:Name="WindowMainWindow"
         Height="{Binding Source={x:Static properties:Settings.Default}, Path=Ui_WindowHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=100}"
-        Width="{Binding Source={x:Static properties:Settings.Default}, Path=Ui_WindowWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=100}">
+        Width="{Binding Source={x:Static properties:Settings.Default}, Path=Ui_WindowWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=100}"
+        Closing="MainWindow_OnClosing">
 
     <!-- Resources -->
     <Window.Resources>
@@ -76,7 +77,7 @@
                                                   CommandParameter="{Binding RelativeSource={RelativeSource Self}}" Command="{Binding Path=OpenAppMenuCommand}">
                     <ToggleButton.ContextMenu>
                         <ContextMenu Style="{StaticResource StyleAppMenuContextMenu}" ItemContainerStyle="{StaticResource StyleAppMenuContextMenuItem}">
-                            <MenuItem Header="HrtzCraft - v0.1" />
+                            <MenuItem Header="{Binding Path=CurrentVersion}" />
                             <MenuItem Header="Exit" Command="{Binding Path=CloseApplicationCommand}" />
                         </ContextMenu>
                     </ToggleButton.ContextMenu>

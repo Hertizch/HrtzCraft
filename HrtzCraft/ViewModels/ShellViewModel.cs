@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Deployment.Application;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -9,13 +10,11 @@ namespace HrtzCraft.ViewModels
 {
     public class ShellViewModel : ObservableObject
     {
-        public ShellViewModel()
-        {
-            
-        }
-
         private ICommand _closeApplicationCommand;
         private ICommand _openAppMenuCommand;
+
+        public string CurrentVersion => ApplicationDeployment.IsNetworkDeployed ? "HrtzCraft - " + ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString()
+            : "HrtzCraft - " + Assembly.GetExecutingAssembly().GetName().Version.Major + "." + Assembly.GetExecutingAssembly().GetName().Version.Minor + "." + Assembly.GetExecutingAssembly().GetName().Version.Build;
 
         public ICommand CloseApplicationCommand
         {
@@ -28,20 +27,6 @@ namespace HrtzCraft.ViewModels
 
         private static void Execute_CloseApplication(object obj)
         {
-            if (ServerConfigViewModel.Instance.Server.IsRunning)
-            {
-                MessageBox.Show("The server is currently online. Shut the server down before exiting.");
-                return;
-            }
-
-            if (ServerConfigViewModel.Instance.SaveServerConfigToFileCommand.CanExecute(ServerConfigViewModel.Instance.ServerSettingsFullPath))
-                ServerConfigViewModel.Instance.SaveServerConfigToFileCommand.Execute(ServerConfigViewModel.Instance.ServerSettingsFullPath);
-
-            if (BuildToolsViewModel.Instance.SaveBuildToolsConfigToFileCommand.CanExecute(BuildToolsViewModel.Instance.BuildToolsSettingsFullPath))
-                BuildToolsViewModel.Instance.SaveBuildToolsConfigToFileCommand.Execute(BuildToolsViewModel.Instance.BuildToolsSettingsFullPath);
-
-            Properties.Settings.Default.Save();
-
             Application.Current.MainWindow.Close();
         }
 

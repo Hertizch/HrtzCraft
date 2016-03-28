@@ -9,16 +9,33 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <extensions:MvvmTextEditor x:Name="TextBoxConsoleOutput" Style="{StaticResource StyleConsoleOutputTextBox}"
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,25,0">
+            
+            <!-- Download/Install button -->
+            <Button Style="{StaticResource StyleBuildToolsDownloadButton}" Command="{Binding Source={StaticResource BuildToolsViewModel}, Path=InstallBuildToolsCommand}" 
+                    ToolTip="Install/Update BuildTools" VerticalAlignment="Top" Margin="0,0,10,0">
+                <Button.Content>
+                    <Path Data="{StaticResource IconDownload}" Fill="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=Foreground}"
+                              Stretch="Uniform"></Path>
+                </Button.Content>
+            </Button>
+
+            <!-- Run button -->
+            <Button Style="{StaticResource StyleBuildToolsRunButton}" Command="{Binding Source={StaticResource BuildToolsViewModel}, Path=RunBuildToolsCommand}"
+                    ToolTip="Run BuildTools">
+                <Button.Content>
+                    <Path Data="{StaticResource IconBuildToolsRun}" Fill="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=Foreground}"
+                              Stretch="Uniform"></Path>
+                </Button.Content>
+            </Button>
+        </StackPanel>
+
+        <extensions:MvvmTextEditor Grid.Row="1" x:Name="TextBoxConsoleOutput" Style="{StaticResource StyleConsoleOutputTextBox}"
                                    DocumentText="{Binding Source={StaticResource BuildToolsViewModel}, Path=ConsoleOutput}" TextChanged="TextBoxConsoleOutput_OnTextChanged" />
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Style="{StaticResource DefaultButton}" Content="Install/Update BuildTools" Command="{Binding Source={StaticResource BuildToolsViewModel}, Path=InstallBuildToolsCommand}" Margin="0,10,10,20" />
-            <Button Style="{StaticResource DefaultButton}" Content="Run BuildTools" Command="{Binding Source={StaticResource BuildToolsViewModel}, Path=RunBuildToolsCommand}" Margin="0,10,10,20" />
-        </StackPanel>
     </Grid>
 </UserControl>
