@@ -1,6 +1,10 @@
 # HrtzCraft
 A design-oriented Minecraft server wrapper built for Spigot.
 
+<p align="center">
+  <img src="http://hertizch.com/img/hrtzcraft.png" width="350"/>
+</p>
+
 # Changelog
 0.1.1:
 - Fixed 'hard-to-reach' scrollbar.
